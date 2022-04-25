@@ -262,7 +262,6 @@ class ReportsActivity : AppCompatActivity() {
 
     }
 
-    // open custom bottom sheet dialog
     private fun openRegisterDialog() {
         val productFragment = RegisterFragment()
         productFragment.show(supportFragmentManager, "add product")
@@ -284,60 +283,62 @@ class ReportsActivity : AppCompatActivity() {
         mainUserViewModel = ViewModelProvider(this, mnFactory)[MainUserViewModel::class.java]
 
     }
+
+    private fun backUpDb(context: Context) {
+        val dialog = MaterialAlertDialogBuilder(
+            context,
+            R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Background
+        )
+
+        dialog.setTitle("Ruaj Databazen")
+        dialog.setMessage(
+            "Aplikacioni e ruan vete databasen ..\n" +
+                    "here pas here \npor ketu e ruani edhe manualisht\nnqs ju duhet per ndonje arsye"
+        )
+        dialog.setPositiveButton("Ruaj") { _, _ ->
+
+
+            val systemService = SystemService(context)
+            systemService.exportDatabase()
+        }
+        dialog.setNegativeButton("Mbyll") { _, _ ->
+
+        }
+
+        dialog.show()
+    }
+
+    private fun importDb(context: Context) {
+
+        val dialog = MaterialAlertDialogBuilder(
+            context,
+            R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Background
+        )
+
+        dialog.setTitle("Ngarko Databazen ?")
+        dialog.setMessage(
+            "Nqs keni hequr aplikacionin \n" +
+                    "per ndonje arsye ..\nketu ngarkon databazen e fundit\n" +
+                    "qe eshte ruajtur\ndmth ngarkon te dhenat tuaja \n" +
+                    "qe kane qene me pare \n" +
+                    "nqs nuk keni hequr dhe instaluar aplikacionin \n" +
+                    "nuk keni pse e kryeni kete veprim \n" +
+                    "shtypni mbyll"
+        )
+        dialog.setPositiveButton("Ngarko") { _, _ ->
+
+
+            val systemService = SystemService(context)
+            systemService.importDatabase()
+
+        }
+        dialog.setNegativeButton("Mbyll") { _, _ ->
+
+        }
+
+        dialog.show()
+
+    }
+
 }
 
-private fun backUpDb(context: Context) {
-    val dialog = MaterialAlertDialogBuilder(
-        context,
-        R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Background
-    )
-
-    dialog.setTitle("Ruaj Databazen")
-    dialog.setMessage(
-        "Aplikacioni e ruan vete databasen ..\n" +
-                "here pas here \npor ketu e ruani edhe manualisht\nnqs ju duhet per ndonje arsye"
-    )
-    dialog.setPositiveButton("Ruaj") { _, _ ->
-
-
-        val systemService = SystemService(context)
-        systemService.exportDatabase()
-    }
-    dialog.setNegativeButton("Mbyll") { _, _ ->
-
-    }
-
-    dialog.show()
-}
-
-private fun importDb(context: Context) {
-
-    val dialog = MaterialAlertDialogBuilder(
-        context,
-        R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Background
-    )
-
-    dialog.setTitle("Ngarko Databazen ?")
-    dialog.setMessage(
-        "Nqs keni hequr aplikacionin \n" +
-                "per ndonje arsye ..\nketu ngarkon databazen e fundit\n" +
-                "qe eshte ruajtur\ndmth ngarkon te dhenat tuaja \n" +
-                "qe kane qene me pare \n" +
-                "nqs nuk keni hequr dhe instaluar aplikacionin \n" +
-                "nuk keni pse e kryeni kete veprim \n" +
-                "shtypni mbyll"
-    )
-    dialog.setPositiveButton("Ngarko") { _, _ ->
-
-
-        val systemService = SystemService(context)
-        systemService.importDatabase()
-
-    }
-    dialog.setNegativeButton("Mbyll") { _, _ ->
-
-    }
-
-    dialog.show()
-
-}

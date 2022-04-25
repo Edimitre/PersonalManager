@@ -23,6 +23,6 @@ interface DescriptionDao {
     fun getAll(): LiveData<List<Description>>
 
     @Query("SELECT * FROM description_table")
-    fun getAllList(): List<Description>
+    suspend fun getAllList(): List<Description>
 
 }

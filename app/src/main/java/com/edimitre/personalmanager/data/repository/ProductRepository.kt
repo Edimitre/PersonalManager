@@ -29,4 +29,10 @@ class ProductRepository(private val productDao: ProductDao) {
         return productDao.getByName(name)
     }
 
+    suspend fun getAllProducts(): List<Product>? {
+
+        return productDao.getAllList()
+
+    }
+
 }

@@ -28,7 +28,7 @@ class DescriptionRepository(private val descriptionDao: DescriptionDao) {
         return descriptionDao.getByName(name)
     }
 
-    fun getDescriptionList(): List<Description> {
+    suspend fun getDescriptionList(): List<Description> {
 
         return descriptionDao.getAllList()
     }

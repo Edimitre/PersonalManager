@@ -1,6 +1,7 @@
 package com.edimitre.personalmanager.activity
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -20,20 +21,24 @@ import com.edimitre.personalmanager.adapter.ProductInExpenseAdapter
 import com.edimitre.personalmanager.data.dao.DescriptionDao
 import com.edimitre.personalmanager.data.dao.ExpenseDao
 import com.edimitre.personalmanager.data.dao.MainUserDao
+import com.edimitre.personalmanager.data.dao.ProductDao
 import com.edimitre.personalmanager.data.model.Description
 import com.edimitre.personalmanager.data.model.Expense
 import com.edimitre.personalmanager.data.model.Product
 import com.edimitre.personalmanager.data.repository.DescriptionRepository
 import com.edimitre.personalmanager.data.repository.ExpenseRepository
 import com.edimitre.personalmanager.data.repository.MainUserRepository
+import com.edimitre.personalmanager.data.repository.ProductRepository
 import com.edimitre.personalmanager.data.roomdb.MyRoomDatabase
 import com.edimitre.personalmanager.data.utils.TimeUtils
 import com.edimitre.personalmanager.data.viewmodel.DescriptionViewModel
 import com.edimitre.personalmanager.data.viewmodel.ExpenseViewModel
 import com.edimitre.personalmanager.data.viewmodel.MainUserViewModel
+import com.edimitre.personalmanager.data.viewmodel.ProductViewModel
 import com.edimitre.personalmanager.data.viewmodelfactory.DescriptionVMFactory
 import com.edimitre.personalmanager.data.viewmodelfactory.ExpenseVMFactory
 import com.edimitre.personalmanager.data.viewmodelfactory.MainUserVMFactory
+import com.edimitre.personalmanager.data.viewmodelfactory.ProductVMFactory
 import com.edimitre.personalmanager.databinding.ActivityExpenseBinding
 import com.edimitre.personalmanager.fragment.AddProductToExpenseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -67,6 +72,14 @@ class AllExpensesActivity() : AppCompatActivity(),
     private lateinit var descriptionDao: DescriptionDao
 
     private lateinit var descAdapter: DescriptionAdapter
+
+    // product
+
+    private lateinit var productDao: ProductDao
+    private lateinit var productRepository: ProductRepository
+    private lateinit var factory: ProductVMFactory
+    private lateinit var productViewModel: ProductViewModel
+
 
 
     // mainuser
@@ -114,6 +127,8 @@ class AllExpensesActivity() : AppCompatActivity(),
         loadDescriptionViewModel()
 
         loadMainUserViewModel()
+
+        loadProductViewModel()
 
         setTopToolbar()
 
@@ -194,7 +209,9 @@ class AllExpensesActivity() : AppCompatActivity(),
         binding.btnAddExpense.setOnClickListener {
 
 
-            openExpenseDialog()
+            checkForDescriptionAndProducts()
+
+
         }
 
         binding.bottomAppBar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener { item: MenuItem ->
@@ -409,6 +426,13 @@ class AllExpensesActivity() : AppCompatActivity(),
 
     }
 
+    protected fun loadProductViewModel(){
+        productDao = MyRoomDatabase.getInstance(applicationContext).productDao
+        productRepository = ProductRepository(productDao)
+        factory = ProductVMFactory(productRepository)
+        productViewModel = ViewModelProvider(this, factory)[ProductViewModel::class.java]
+    }
+
     private fun loadMainUserViewModel() {
         mainUserDao = MyRoomDatabase.getInstance(applicationContext).mainUserDao
         mainUserRepository = MainUserRepository(mainUserDao)
@@ -440,5 +464,64 @@ class AllExpensesActivity() : AppCompatActivity(),
         binding.toolbar.title = "Totali : " + expense.spentValue
 
     }
+
+    private fun checkForDescriptionAndProducts(){
+        val allProducts = productViewModel.allProductsList
+
+        val allDescriptions = descriptionViewModel.descList
+        if (allDescriptions!!.isEmpty()){
+            val dialog = MaterialAlertDialogBuilder(
+                this,
+                R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Background
+            )
+
+            dialog.setTitle("Ska Pershkrim")
+            dialog.setMessage(
+                "Ju lutem shtoni pershkrim reth shpenzimit PSH:\nPazar Ne Market ose \n" +
+                        "ose dicka qe shpjegon reth shpenzimit\n" +
+                        "ne kete menyre shpenzimet jane me te organizuara "
+            )
+            dialog.setPositiveButton("Shto") { _, _ ->
+
+                val intent = Intent(this, DescriptionActivity::class.java)
+                startActivity(intent)
+
+            }
+            dialog.setNegativeButton("Mbyll") { _, _ ->
+
+            }
+
+            dialog.show()
+        }else if (allProducts!!.isEmpty()){
+
+            val dialog = MaterialAlertDialogBuilder(
+                this,
+                R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Background
+            )
+
+            dialog.setTitle("Ska asnje produkt")
+            dialog.setMessage(
+                "Ju lutem shtoni produkte bashke me vleren e tyre \n" +
+                        "sepse nuk u gjend asnje produkt!"
+            )
+            dialog.setPositiveButton("Shto") { _, _ ->
+
+                val intent = Intent(this, ProductsActivity::class.java)
+                startActivity(intent)
+
+            }
+            dialog.setNegativeButton("Mbyll") { _, _ ->
+
+            }
+
+            dialog.show()
+        }else{
+
+            openExpenseDialog()
+        }
+
+
+    }
+
 
 }

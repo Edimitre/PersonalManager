@@ -7,6 +7,7 @@ import com.edimitre.personalmanager.data.model.Description
 import com.edimitre.personalmanager.data.repository.DescriptionRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class DescriptionViewModel(private val descriptionRepository: DescriptionRepository) : ViewModel() {
 
@@ -17,15 +18,20 @@ class DescriptionViewModel(private val descriptionRepository: DescriptionReposit
     var descList: List<Description>? = null
 
 
-    fun getAllDescriptionList(): List<Description>? {
-
-        val thread = Thread(Runnable {
+    init {
+        runBlocking {
             descList = descriptionRepository.getDescriptionList()
-        })
-        thread.start()
-        thread.join()
-        return descList
+        }
     }
+//    fun getAllDescriptionList(): List<Description>? {
+//
+//        val thread = Thread(Runnable {
+//            descList = descriptionRepository.getDescriptionList()
+//        })
+//        thread.start()
+//        thread.join()
+//        return descList
+//    }
 
     fun saveDescription(description: Description): Job = viewModelScope.launch {
         descriptionRepository.save(description)

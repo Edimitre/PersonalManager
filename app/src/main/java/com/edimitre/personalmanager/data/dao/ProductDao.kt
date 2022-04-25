@@ -20,6 +20,9 @@ interface ProductDao {
     fun getByName(name: String): LiveData<List<Product>>
 
     @Query("SELECT * FROM product_table")
+    suspend fun getAllList(): List<Product>
+
+    @Query("SELECT * FROM product_table")
     fun getAll(): LiveData<List<Product>>
 
 

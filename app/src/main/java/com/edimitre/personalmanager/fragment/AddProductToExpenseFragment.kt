@@ -157,7 +157,7 @@ class AddProductToExpenseFragment : DialogFragment() {
     private fun addDataToSpinner() {
 
 
-        val descriptionList: List<Description> = descriptionViewModel.getAllDescriptionList()!!
+        val descriptionList: List<Description> = descriptionViewModel.descList!!
 
         val spinnerAdapter: ArrayAdapter<Description> =
             ArrayAdapter<Description>(
