@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/btn_save_expense"
+        android:icon="@drawable/ic_save"
+        android:title="Shto Pershkrim "
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/btn_clear_list"
+        android:icon="@drawable/ic_cancel"
+        android:title="mbyll "
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/btn_open_expense_date_picker"
+        android:icon="@drawable/ic_date_range"
+        android:title="mbyll "
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/btn_close_selected_expenses"
+        android:icon="@drawable/ic_clear"
+        android:title="mbyll "
+        app:showAsAction="ifRoom"/>
+
+
+
+</menu>

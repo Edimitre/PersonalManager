@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.edimitre.personalmanager">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/wallet"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/wallet"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PersonalManager">
+
+
+        <activity
+            android:name=".activity.DailyReportsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ReportsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ReminderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MonthlyIncomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AllExpensesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DescriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ProductsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".system.DailyReportGenerator"
+            android:enabled="true"
+            android:exported="false">
+
+
+        </service>
+        <receiver android:name=".system.MyAlarmReceiver" />
+        <receiver android:name=".system.DailyReportsReceiver" />
+    </application>
+
+</manifest>

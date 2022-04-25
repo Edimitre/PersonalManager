@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/btn_toolbar_profile"
+        android:icon="@drawable/avatar"
+        android:title="profile_settings"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/btn_toolbar_search"
+        android:icon="@drawable/ic_search"
+        android:title="search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/btn_clear_search"
+        android:icon="@drawable/ic_clear"
+        android:title="clear_search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/btn_back_up_db"
+        android:icon="@drawable/ic_backup"
+        android:title="backup_db"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/btn_reload_db"
+        android:icon="@drawable/ic_reload"
+        android:title="reload_db"
+        app:showAsAction="ifRoom"/>
+
+</menu>
