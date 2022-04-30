@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.PersonalManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorPrimary">@color/gray</item>
+        <item name="colorPrimaryVariant">@color/red_tomato</item>
         <item name="colorOnPrimary">@color/black</item>
 
 
